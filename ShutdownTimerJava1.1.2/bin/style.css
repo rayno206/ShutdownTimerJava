@@ -1,0 +1,76 @@
+#gridPane {
+	-fx-background-color:  linear-gradient(#4d94b3, #3c64c4);
+	-fx-border-color: white;
+	-fx-border-radius: 10;
+	-fx-padding: 10px 10px 10px 10px;
+	-fx-background-radius: 10;
+}
+
+#border {
+	/*-fx-background-color:  linear-gradient(#4d94b3, #46b99c);*/
+	/*Best one so far*/
+	-fx-background-color: linear-gradient(#0000cc, #ff884d);
+}
+
+#btnStart, #btnCancel {
+	-fx-font: bold 11pt "Arial";
+	-fx-text-fill: white;
+    -fx-background-radius: 30, 30, 29, 28;
+    -fx-padding: 3px 10px 3px 10px;
+    -fx-background-color: linear-gradient(orange, orangered);
+}
+
+#btnStart:hover, #btnCancel:hover {
+	-fx-font: bold 11pt "Arial";
+	-fx-text-fill: linear-gradient(orange, orangered);
+    -fx-background-radius: 30, 30, 29, 28;
+    -fx-padding: 3px 10px 3px 10px;
+    -fx-background-color: white;
+}
+
+#title {
+	-fx-fill: orange;
+	-fx-font: bold 40 "Courier New";
+}
+
+
+#author {
+	-fx-text-fill: orange;
+	/*-fx-font: bold italic 18 "Courier New";*/
+	-fx-font: bold italic 15 "Courier New";
+	-fx-padding: 0px 0px 20px 0px;
+	-fx-text-alignment: right;
+	-fx-underline: true;
+}
+
+#lBel {
+	-fx-font: bold italic 10pt "Arial";
+	/*-fx-text-fill: linear-gradient(lime, green);*/
+	-fx-text-fill: orange;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: linear-gradient(from 0px .75em to .75em 0px, repeat, -fx-accent 0%, -fx-accent 49%, derive(-fx-accent, 30%) 50%, derive(-fx-accent, 30%) 99%
+    );
+}
+
+/*
+#authorTooltip {
+    -fx-background: rgba(30,30,30);
+    -fx-text-fill: white;
+    -fx-background-color: rgba(30,30,30,0.8);
+    -fx-background-radius: 6px;
+    -fx-background-insets: 0;
+    -fx-padding: 0.667em 0.75em 0.667em 0.75em; /* 10px 
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
+    -fx-font-size: 0.85em;
+}
+*/
+
+/*
+#spinner:focused {
+	-fx-border-color: lime;
+	-fx-border-radius: 4;
+	-fx-border-width: 1.5px;
+}
+*/
