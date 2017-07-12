@@ -53,7 +53,7 @@ public class ShutdownTimer extends Application{
 		private static Stage window;
 		private static Scene timerScene;
 		private static Text title;
-		
+
 		//Buttons, TextFields, Spinners, Labels for timerScene
 		private static Button btnStart, btnCancel;
 		private static Label author, hourLabel, minuteLabel, secondLabel, clLabel2, clLabel3;
@@ -64,20 +64,20 @@ public class ShutdownTimer extends Application{
 		private ProgressIndicator pi;
 		private ComboBox comboBox;
 		private static ObservableList<String> options = FXCollections.observableArrayList("Timing Shutdown","Timing Restart","Timing Sleep");
-		
+
 		//Layout
 		public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		private static VBox vboxTimer;
 		private static HBox hboxTitle, hboxAuthor;
 		private static BorderPane borderTimer;
 		private static GridPane gridTimer, gridBtn;
-		
+
 		//variables
 		private long timeLeft = 0;
 		private TimeCountdown tcd;
 		private String pTypes = "";
 		private Task copyWorker;
-			
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -85,7 +85,7 @@ public class ShutdownTimer extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		
+
 		//scenes
 		SceneTimer();
 		SceneGUI();
@@ -103,7 +103,7 @@ public class ShutdownTimer extends Application{
 		window.setResizable(false);
 		window.show();
 	}
-	
+
 	public void SceneGUI() {
 		//double width = (screenSize.getWidth()*0.989);
 		//double height = (screenSize.getHeight()*0.925);
@@ -111,25 +111,25 @@ public class ShutdownTimer extends Application{
 		borderTimer.setId("border");
 		borderTimer.setPadding(new Insets(10, 50, 90, 50));
 		borderTimer.setCenter(vboxTimer);
-		
+
 		timerScene = new Scene(borderTimer);
 		timerScene.getStylesheets().add(getClass().getClassLoader().getResource("style.css").toExternalForm());
 	}
-	
+
 	public void SceneTimer() {
 		gridTimer = new GridPane();
 		//gridTimer.setPadding(new Insets(0, 0, 25, 0));
 		gridTimer.setHgap(5);
 		gridTimer.setVgap(5);
 		gridTimer.setAlignment(Pos.CENTER);
-		
+
 		gridBtn = new GridPane();
 		//gridBtn.setPadding(new Insets(140, 20, 25, 20));
 		gridBtn.getStylesheets().add(getClass().getResource("striped-progress.css").toExternalForm());
 		gridBtn.setHgap(5);
 		gridBtn.setVgap(5);
 		gridBtn.setAlignment(Pos.CENTER);
-		
+
 		vboxTimer = new VBox();
 		vboxTimer.setAlignment(Pos.CENTER);
 		hboxAuthor = new HBox();
@@ -138,13 +138,13 @@ public class ShutdownTimer extends Application{
 		Reflection r = new Reflection();
 		r.setFraction(0.7f);
 		gridBtn.setEffect(r);
-		
+
 		title = new Text("Shutdown Timer");
 		author = new Label("Author");
 		authorTooltip = new Tooltip();
 		authorTooltip.setText("designed by Patrick Mai");
 		author.setTooltip(authorTooltip);
-		
+
 		hourLabel = new Label("HH");
 		minuteLabel = new Label("MM");
 		secondLabel = new Label("SS");
@@ -160,12 +160,12 @@ public class ShutdownTimer extends Application{
 		btnCancel.setPrefWidth(70);
 		btnCancel.setDisable(true);
 		btnCancel.setStyle("-fx-opacity: 0.7; -fx-text-fill: white");
-		
+
 		comboBox = new ComboBox();
 		comboBox.setItems(options);
 		comboBox.getSelectionModel().selectFirst();
 		comboBox.setPrefWidth(210);
-		
+
 		gridTimer.add(hourLabel, 0, 0);
 		gridTimer.add(minuteLabel, 2, 0);
 		gridTimer.add(secondLabel, 4, 0);
@@ -180,7 +180,7 @@ public class ShutdownTimer extends Application{
 		gridBtn.add(pi, 1, 2);
 		gridBtn.add(btnStart, 1, 0);
 		gridBtn.add(btnCancel, 1, 1);
-		
+
 		gridBtn.setId("gridPane");
 		btnStart.setId("btnStart");
 		btnCancel.setId("btnCancel");
@@ -198,10 +198,10 @@ public class ShutdownTimer extends Application{
 		spSecond.setId("spinner");
 		comboBox.setId("spinner");
 		*/
-		
+
 		hboxAuthor.getChildren().addAll(author);
 		vboxTimer.getChildren().addAll(title, hboxAuthor, gridBtn);
-		
+
 		btnStart.setOnAction(e -> {
 			//get values from spinners, comboBoxes
 			timeLeft = (Long.parseLong(spHour.getEditor().getText())*3600) + (Long.parseLong(spMinute.getEditor().getText()) * 60) + (Long.parseLong(spSecond.getEditor().getText()));
@@ -220,14 +220,14 @@ public class ShutdownTimer extends Application{
 			comboBox.setStyle("-fx-opacity: 1; -fx-text-fill: black;-fx-background-color: white");
 			btnStart.setStyle("-fx-opacity: 0.7; -fx-text-fill: white");
 			btnCancel.setStyle("-fx-opacity: 1");
-			// ProgressBar
+			// ProgressBar - reset the progress of the bar and pi
 			bar.setProgress(0);
 			pi.setProgress(0);
 			// actions
 			tcd = new TimeCountdown(spHour, spMinute, spSecond, pTypes, timeLeft, bar, pi);
 			tcd.start();
 		});
-		
+
 		btnCancel.setOnAction(e -> {
 			// disable/enable spinners, comboBoxes and buttons
 			spHour.setDisable(false);
@@ -250,9 +250,9 @@ public class ShutdownTimer extends Application{
 			// actions
 			tcd.stopMe();
 			System.out.println("Shutdown Cancelled");
-		});		
+		});
 	}
-	
+
 	public void TimeProgressBar() {
 		bar = new ProgressBar(0);
 		bar.setPrefWidth(210);
@@ -285,11 +285,11 @@ public class ShutdownTimer extends Application{
             }
             return c;
         };
-        
+
         TextFormatter<Integer> spHourFormatter = new TextFormatter<Integer>(new IntegerStringConverter(), 0, filter);
         TextFormatter<Integer> spMinuteFormatter = new TextFormatter<Integer>(new IntegerStringConverter(), 60, filter);
         TextFormatter<Integer> spSecondFormatter = new TextFormatter<Integer>(new IntegerStringConverter(), 0, filter);
-        
+
         //Hour
         spHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10000));
         spHour.setEditable(true);
